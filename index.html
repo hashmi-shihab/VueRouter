@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Transition Annimation.11</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style type="text/css">
+		.foo{
+			background: #E0BABA;
+			text-align: center;
+			width: 960px;
+			margin: 44px auto;
+			min-height: 222px; 
+		}
+		.bar-enter-active, .bar-leave-active{
+			transition: margin-left 1s;
+		}
+		.bar-enter{
+			margin-left: -1111px;
+		}
+
+		.bar-leave-to{
+			margin-left: 1111px;
+		}
+		.main{
+			position: absolute;
+			width: 100%;
+		}
+		ul.menu{
+			list-style: none;
+			width: 960px;
+			margin: auto;
+			background: #1A6AA1;
+			color: #FFFFFF;
+		}
+		ul.menu li{
+			display: inline;
+		}
+		ul.menu li a{
+			color: #fff;
+			display: inline-block;
+			padding: 5px;
+			text-decoration: none;
+		}
+		ul.menu li a.router-link-active{
+			background: #BE4001;
+		}
+	</style>
+</head>
+<body>
+<div id="root">
+		<ul class="menu">
+			<li><router-link to="/home">Home</router-link></li>
+			<li><router-link to="/about">About</router-link></li>
+			<li><router-link to="/contact">Contact</router-link></li>
+		</ul>
+		<!-- transition used for annimation -->
+		<transition name="bar">
+			<!-- in router-view we can see the desired component -->
+			<router-view></router-view>
+		</transition>
+		
+		
+</div>
+
+	<script type="text/javascript" src="vue2.6.js"></script>
+	<script type="text/javascript" src="vue-router.js"></script>
+	<script type="text/javascript">
+		/*component*/
+		var Home = {
+			template:`
+			<div class="main">
+				<div class="foo">
+					<h1>Home</h1>
+					<p>Home content goes here.....</p>
+				</div>
+			</div>
+			`
+		};
+		var About = {
+			template:`
+			<div class="main">
+				<div class="foo">
+					<h1>About</h1>
+					<p>About content goes here.....</p>
+				</div>
+			</div>
+			`
+		};
+		var Contact = {
+			template:`
+			<div class="main">
+				<div class="foo">
+					<h1>Contact</h1>
+					<p>Contact content goes here.....</p>
+				</div>
+			</div>
+			`
+		};
+		/*routes*/
+		var routes =[
+			{path: '/home', component: Home},
+			{path: '/about', component: About},
+			{path: '/contact', component: Contact},
+		]
+		/*VueRouter instance,mode:'history' used because of avoiding # in /routename. otherwise we will get /#routename*/
+		var router = new VueRouter({
+			routes: routes,
+			mode: 'history',
+			base: '/vueRouter'
+		});
+
+		var app = new Vue({
+	  		router: router
+		}).$mount('#root');
+	</script>
+</body>
+</html>
+
